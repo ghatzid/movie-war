@@ -20,17 +20,14 @@ class App extends React.Component {
   render(){
     return (
       <div className="app">
-          {/* <div>
-            <GameContainer />
-          </div> */}
-          <div>
+          <div id="game-container" name="game-container" className="game-container">
             <GameContainer
               cards={this.state}
-            />          
-            <DeckContainer
-              // cardsInPlay={this.state.cardsInPlay}
             />
-           
+            </div>        
+            <div id="deck-container" name="deck-container" className="deck-container">  
+            <DeckContainer
+            />
           </div>
       </div>
     );

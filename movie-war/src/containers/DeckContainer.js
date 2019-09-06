@@ -3,7 +3,7 @@ import MovieCard from '../components/MovieCard';
 
 class DeckContainer extends React.Component {
     state={
-        inDeck: [{id: 'tt0033870', title: 'Caseblanca', rating: 7}, {id: "tt0120201", title: 'Starship Troopers', rating: 11}]
+        inDeck: [{id: 'tt0033870', title: 'Casablanca', rating: 7}, {id: "tt0120201", title: 'Starship Troopers', rating: 11}]
     }
 
     render(){
