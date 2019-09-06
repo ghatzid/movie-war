@@ -5,6 +5,7 @@ import './App.css';
 
 class App extends React.Component {
   state = {
+    deck: [],
     playerCard: {
       id: 'tt0047478',
       title: 'Seven Samurai',
@@ -17,7 +18,14 @@ class App extends React.Component {
     }
   }
 
+  componentDidMount(){
+    fetch('http://localhost:3000/api/v1/cards')
+    .then(resp => resp.json())
+    .then(data => this.setState({deck: data}))
+  }
+
   render() {
+    console.log("deck:", this.state.deck)
     return (
       <div className="app">
         {/* <div id="header-contaner" name="header-container">
@@ -30,6 +38,7 @@ class App extends React.Component {
         </div>
         <div id="deck-container" name="deck-container" className="deck-container">
           <DeckContainer
+            cards={this.state.deck}
           />
         </div>
       </div>

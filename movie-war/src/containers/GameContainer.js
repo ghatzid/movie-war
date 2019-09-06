@@ -3,7 +3,7 @@ import MovieCard from '../components/MovieCard';
 import HouseCard from '../components/HouseCard';
 
 function GameContainer(props) {
-    console.log('Game Container Props:', props)
+    // console.log('Game Container Props:', props)
     let comparator = ">"
     return (
         <div className="game-container">

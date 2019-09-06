@@ -2,7 +2,7 @@ import React from 'react'
 
 function MovieCard(props) {
 
-    console.log(props)
+    // console.log(props)
     return (
         <div className="deck-card">
             <img src={`https://img.omdbapi.com/?i=${props.id}&h=600&apikey=6a23e601`} alt='' />
