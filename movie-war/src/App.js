@@ -38,7 +38,7 @@ class App extends React.Component {
         </div>
         <div id="deck-container" name="deck-container" className="deck-container">
           <DeckContainer
-            cards={this.state.deck}
+            deck={this.state.deck}
           />
         </div>
       </div>

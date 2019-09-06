@@ -7,9 +7,9 @@ class DeckContainer extends React.Component {
     }
 
     render() {
-        let deckComponents = this.state.inDeck.map(movie =>
+        let deckComponents = this.props.deck.map(movie =>
             <MovieCard
-                id={movie.id}
+                id={movie.tconst}
                 title={movie.title}
                 rating={movie.rating}
             />
