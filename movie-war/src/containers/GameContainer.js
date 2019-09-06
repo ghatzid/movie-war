@@ -1,5 +1,5 @@
 import React from 'react'
-import MovieCard from '../components/MovieCard';
+import PlayerCard from '../components/PlayerCard';
 import HouseCard from '../components/HouseCard';
 
 function GameContainer(props) {
@@ -18,7 +18,7 @@ function GameContainer(props) {
             </div>
             <div className="player-card">
                 <h3>Player's Card</h3>
-                <MovieCard
+                <PlayerCard
                     id={props.cards.playerCard.id}
                     title={props.cards.playerCard.title}
                     rating={props.cards.playerCard.rating}

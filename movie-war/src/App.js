@@ -31,12 +31,12 @@ class App extends React.Component {
         {/* <div id="header-contaner" name="header-container">
           <HeaderContainer />
         </div> */}
-        <div id="game-container" name="game-container">
+        <div>
           <GameContainer
             cards={this.state}
           />
         </div>
-        <div id="deck-container" name="deck-container" className="deck-container">
+        <div>
           <DeckContainer
             deck={this.state.deck}
           />

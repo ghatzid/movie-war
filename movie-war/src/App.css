@@ -4,23 +4,60 @@
   text-align: center;
 }
 
+img{border-radius: 8px;}
 
 .game-container{
 display: flex;
 flex-direction: row;
 justify-content: center;
 align-items: top;
+background-color: #ccffff;
 
 }
 .deck-container{
   display: flex;
   flex-direction: row;
+  background-color: #99ffcc;
+
 }
-.deck-card{
+
+.house-card{
+
+}
+
+.player-card{
+
+}
+
+.movie-card{
   display: flex;
   flex-direction: column;
-  margin: 5%;
-  /* max-width: 50%; */
+  margin: 10px;
+  align-items: center;
+  background-color: antiquewhite;
+  /* max-width: 15%; */
+  border-radius: 8px;
+  justify-content: center;
+}
+
+.movie-card img{
+  margin: 10px;
+  width: 25%;
+  height: auto; 
+}
+
+.movie-card h4{
+margin: 2px;
+
+}
+.movie-card p{
+  margin: 2px;
+  margin-bottom: 10px;
+}
+
+.player-card p{
+  margin-top: 2px;
+  margin-bottom: 20px;
 }
 
 .comparator{
