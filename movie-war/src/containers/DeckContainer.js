@@ -9,7 +9,9 @@ class DeckContainer extends React.Component {
     render() {
         let deckComponents = this.props.deck.map(movie =>
             <MovieCard
-                id={movie.tconst}
+                key={movie.tconst}
+                clickHandler = {this.props.clickHandler}
+                tconst={movie.tconst}
                 title={movie.title}
                 rating={movie.rating}
             />

@@ -5,40 +5,114 @@ import './App.css';
 
 class App extends React.Component {
   state = {
-    deck: [],
+    round: 1,
+    comparatorHigher: true,
+    playerDeck: [],
+    AIDeck: [],
     playerCard: {
-      id: 'tt0047478',
-      title: 'Seven Samurai',
-      rating: 10
     },
     AICard: {
-      id: 'tt0032138',
-      title: 'The Wizard of Oz',
-      rating: 8
     }
   }
-
+  
   componentDidMount(){
+    // fetch('http://localhost:3000/api/v1/cards')
+    // .then(resp => resp.json())
+    // .then(data => this.setState({playerDeck: data, AIDeck: data, AICard: data[Math.floor(Math.random()*data.length)]}))
+    this.newGame()
+  }
+
+  newGame = () => {
     fetch('http://localhost:3000/api/v1/cards')
     .then(resp => resp.json())
-    .then(data => this.setState({deck: data}))
+    .then(data => this.setState({playerDeck: data.slice(1,3), AIDeck: data, AICard: data[Math.floor(Math.random()*data.length)]}))
+  }
+
+  newRound = () => {
+    this.setState({
+      comparatorHigher: !this.state.comparatorHigher,
+      playerCard: {},
+      AICard: this.state.AIDeck[Math.floor(Math.random()*this.state.AIDeck.length)]
+    })
+  }
+
+  checkWinCondition = () => {
+    console.log('checking win condition')
+    if (this.state.playerDeck.length === 0 || this.state.AIDeck.length === 0){
+      this.newGame()
+    }
+    else {
+      this.newRound()
+    }
+    console.log("checkWindCondition evaluates playerDeck length to:", this.state.playerDeck.length)
+  }
+
+  commitHandler = (playerCard = this.state.playerCard, AICard = this.state.AICard) => {
+    //if comparator is set to higher, victory condition is to possess higher rating
+    if (this.state.comparatorHigher === true) {
+      if(playerCard.rating > AICard.rating){
+        let newArray = this.state.AIDeck.filter(movie => movie !== AICard)
+        this.setState({AIDeck: newArray})
+        console.log('player wins')
+        this.checkWinCondition()
+      }
+      else if(playerCard.rating < AICard.rating) {
+        let newArray = this.state.playerDeck.filter(movie => movie.tconst !== playerCard.tconst)
+        this.setState({playerDeck: newArray})
+        console.log('player loses')
+        console.log("player deck cards:", this.state.playerDeck)
+        this.checkWinCondition()
+      }
+      else {
+        console.log('tie!')
+        this.checkWinCondition()
+      }
+    }
+
+    //if comparator is set to lower, victory condition is to possess lower rating
+    else if (this.state.comparatorHigher === false) {
+      if(playerCard.rating < AICard.rating){
+        let newArray = this.state.AIDeck.filter(movie => movie.tconst !== AICard.tconst)
+        this.setState({AIDeck: newArray})
+        console.log('player wins')
+        this.checkWinCondition()
+      }
+      else if(playerCard.rating > AICard.rating) {
+        let newArray = this.state.playerDeck.filter(movie => movie.tconst !== playerCard.tconst)
+        this.setState({playerDeck: newArray})
+        console.log('player loses')
+        this.checkWinCondition()
+      }
+      else {
+        console.log('tie!')
+        this.checkWinCondition()
+      }
+    }
+    // console.log("number of AI cards", this.state.AIDeck.length)
+    console.log("Cards in Players Deck:", this.state.playerDeck.length)
+    // console.log("AIDeck:", this.state.AIDeck)
+  }
+
+  slamHandler = (movie) => {
+    this.setState({playerCard: movie})
   }
 
   render() {
-    console.log("deck:", this.state.deck)
+    // console.log("AIdeck:", this.state.AIDeck)
     return (
       <div className="app">
-        {/* <div id="header-contaner" name="header-container">
-          <HeaderContainer />
-        </div> */}
         <div>
           <GameContainer
+            clickHandler = {this.commitHandler}
             cards={this.state}
+            comparatorHigher = {this.state.comparatorHigher}
+
           />
         </div>
         <div>
           <DeckContainer
-            deck={this.state.deck}
+            clickHandler = {this.slamHandler}
+            deck={this.state.playerDeck}
           />
         </div>
       </div>
