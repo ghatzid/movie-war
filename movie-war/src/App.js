@@ -16,9 +16,6 @@ class App extends React.Component {
   }
   
   componentDidMount(){
-    // fetch('http://localhost:3000/api/v1/cards')
-    // .then(resp => resp.json())
-    // .then(data => this.setState({playerDeck: data, AIDeck: data, AICard: data[Math.floor(Math.random()*data.length)]}))
     this.newGame()
   }
 
@@ -62,8 +59,7 @@ class App extends React.Component {
     if (this.state.comparatorHigher === true) {
       if(playerCard.rating > AICard.rating){
         let newArray = this.state.AIDeck.filter(movie => movie !== AICard)
-        this.setState({AIDeck: newArray}, () => this.checkWinCondition()
-        )
+        this.setState({AIDeck: newArray}, () => this.checkWinCondition())
         console.log('player wins')
       }
       else if(playerCard.rating < AICard.rating) {
