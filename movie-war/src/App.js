@@ -22,14 +22,20 @@ class App extends React.Component {
   newGame = () => {
     console.log('starting new game')
     this.setState({playerCard:{} })
-    fetch('http://localhost:3000/api/v1/cards/random/23')
+    fetch('http://localhost:3000/api/v1/cards/random/10')
     .then(resp => resp.json())
-    .then(data => this.setState({playerDeck: data.slice(0,10), AIDeck: data.slice(12,22), AICard: data[Math.floor(Math.random()*data.length)]}, () =>     console.log("Player Deck:", this.state.playerDeck.length, "AIDeck:", this.state.AIDeck.length)
-    ))
+    .then(data => this.setState({playerDeck: data}, () => console.log("Player Deck:", this.state.playerDeck)))
+    // .then(data => this.setState({playerDeck: data.slice(0,10), AIDeck: data.slice(12,22), AICard: data[Math.floor(Math.random()*data.length)]}, () =>     console.log("Player Deck:", this.state.playerDeck.length, "AIDeck:", this.state.AIDeck.length)
+    fetch('http://localhost:3000/api/v1/cards/random/10')
+    .then(resp => resp.json())
+    .then(data => this.setState({AIDeck: data}, () => this.newRound()))
   }
+
+
 
   newRound = () => {
     console.log('starting new round')
+    console.log("AI deck:", this.state.AIDeck)
     this.setState({
       comparatorHigher: !this.state.comparatorHigher,
       playerCard: {},
@@ -61,15 +67,15 @@ class App extends React.Component {
       if(playerCard.rating > AICard.rating){
         let newArray = this.state.AIDeck.filter(movie => movie !== AICard)
         this.setState({AIDeck: newArray}, () => this.checkWinCondition())
-        console.log('player wins')
+        alert('player wins')
       }
       else if(playerCard.rating < AICard.rating) {
         let newArray = this.state.playerDeck.filter(movie => movie.tconst !== playerCard.tconst)
         this.setState({playerDeck: newArray}, () => this.checkWinCondition())
-        console.log('player loses')
+        alert('player loses')
       }
       else {
-        console.log('tie!')
+        alert('tie!')
         this.checkWinCondition()
       }
     }
@@ -78,16 +84,16 @@ class App extends React.Component {
       if(playerCard.rating < AICard.rating){
         let newArray = this.state.AIDeck.filter(movie => movie.tconst !== AICard.tconst)
         this.setState({AIDeck: newArray}, () => this.checkWinCondition())
-        console.log('player wins')
+        alert('player wins')
       }
       else if(playerCard.rating > AICard.rating) {
         let newArray = this.state.playerDeck.filter(movie => movie.tconst !== playerCard.tconst)
         this.setState({playerDeck: newArray}, () => this.checkWinCondition())
-        console.log('player loses')
+        alert('player loses')
     
       }
       else {
-        console.log('tie!')
+        alert('tie!')
         this.checkWinCondition()
       }
     }
