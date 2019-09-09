@@ -23,6 +23,19 @@ img{
   width: 5%;
 }
 
+
+.welcome-container{
+display: flex;
+flex-direction: column;
+justify-content: center;
+align-items: top;
+background-color: white;
+border: 5px solid white;
+border-radius: 5px;
+
+}
+
+
 .game-container{
 display: flex;
 flex-direction: row;
