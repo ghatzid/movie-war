@@ -24,6 +24,9 @@ class App extends React.Component {
           <HeaderContainer />
         </div> */}
         <div>
+          <div className="sidebar">
+
+          </div>
           <GameContainer
             cards={this.state}
           />
@@ -31,6 +34,8 @@ class App extends React.Component {
         <div>
           <DeckContainer
           />
+        </div>
+        <div className="sidebar">
         </div>
       </div>
     );
