@@ -22,9 +22,9 @@ class App extends React.Component {
   newGame = () => {
     console.log('starting new game')
     this.setState({playerCard:{} })
-    fetch('http://localhost:3000/api/v1/cards/random/22')
+    fetch('http://localhost:3000/api/v1/cards/random/23')
     .then(resp => resp.json())
-    .then(data => this.setState({playerDeck: data.slice(0,10), AIDeck: data.slice(11,21), AICard: data[Math.floor(Math.random()*data.length)]}, () =>     console.log("Player Deck:", this.state.playerDeck.length, "AIDeck:", this.state.AIDeck.length)
+    .then(data => this.setState({playerDeck: data.slice(0,10), AIDeck: data.slice(12,22), AICard: data[Math.floor(Math.random()*data.length)]}, () =>     console.log("Player Deck:", this.state.playerDeck.length, "AIDeck:", this.state.AIDeck.length)
     ))
   }
 
