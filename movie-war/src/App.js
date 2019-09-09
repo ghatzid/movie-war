@@ -124,9 +124,19 @@ class App extends React.Component {
         }} />
         <Route exact path="/deckbuilder" render={() => {
           return (
-            <div>
-              <h5>Yo</h5>
-            </div>)
+            <div className="app">
+              <div>
+                <DeckBuilderContainer
+                />
+              </div>
+              <div>
+                <DeckContainer
+                  clickHandler={this.slamHandler}
+                  deck={[]}
+                />
+              </div>
+            </div>
+          )
         }} />
       </Router>
     );
