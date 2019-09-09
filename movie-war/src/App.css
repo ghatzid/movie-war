@@ -40,7 +40,17 @@ border-radius: 5px;
   border: 5px solid white;
   border-radius: 5px;
 }
+.deck-builder-container{
+  display: flex;
+  flex-direction: row;
+  background-color: white;
+  border: 5px solid white;
+  border-radius: 5px;
+}
 
+.submit-deck-button{
+  color: white;
+}
 
 
 .movie-card{

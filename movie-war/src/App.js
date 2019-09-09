@@ -1,6 +1,10 @@
 import React from 'react';
 import DeckContainer from './containers/DeckContainer'
 import GameContainer from './containers/GameContainer'
+import DeckBuilderContainer from './containers/DeckBuilderContainer'
+
+import { Route, Redirect, BrowserRouter as Router } from 'react-router-dom'
+
 import './App.css';
 
 class App extends React.Component {
@@ -14,18 +18,20 @@ class App extends React.Component {
     AICard: {
     }
   }
-  
-  componentDidMount(){
+
+  componentDidMount() {
     this.newGame()
   }
 
   newGame = () => {
     console.log('starting new game')
     this.setState({playerCard:{} })
+    // if(this.state.playerDeck === []) {
     fetch('http://localhost:3000/api/v1/cards/random/10')
     .then(resp => resp.json())
     .then(data => this.setState({playerDeck: data}, () => console.log("Player Deck:", this.state.playerDeck)))
     // .then(data => this.setState({playerDeck: data.slice(0,10), AIDeck: data.slice(12,22), AICard: data[Math.floor(Math.random()*data.length)]}, () =>     console.log("Player Deck:", this.state.playerDeck.length, "AIDeck:", this.state.AIDeck.length)
+    // }
     fetch('http://localhost:3000/api/v1/cards/random/10')
     .then(resp => resp.json())
     .then(data => this.setState({AIDeck: data}, () => this.newRound()))
@@ -39,7 +45,7 @@ class App extends React.Component {
     this.setState({
       comparatorHigher: !this.state.comparatorHigher,
       playerCard: {},
-      AICard: this.state.AIDeck[Math.floor(Math.random()*this.state.AIDeck.length)]
+      AICard: this.state.AIDeck[Math.floor(Math.random() * this.state.AIDeck.length)]
     })
   }
 
@@ -47,11 +53,11 @@ class App extends React.Component {
     // console.log('checking win condition')
     // console.log("house deck cards:", this.state.AIDeck.length)
     console.log("Player Deck:", this.state.playerDeck.length, "AIDeck:", this.state.AIDeck.length)
-    if (this.state.playerDeck.length === 0){
+    if (this.state.playerDeck.length === 0) {
       alert('Player loses, starting new game')
       this.newGame()
-    } 
-    else if(this.state.AIDeck.length === 0){
+    }
+    else if (this.state.AIDeck.length === 0) {
       this.newGame()
       alert('House loses, starting new game')
 
@@ -64,12 +70,12 @@ class App extends React.Component {
   commitHandler = (playerCard = this.state.playerCard, AICard = this.state.AICard) => {
     //if comparator is set to higher, victory condition is to possess higher rating
     if (this.state.comparatorHigher === true) {
-      if(playerCard.rating > AICard.rating){
+      if (playerCard.rating > AICard.rating) {
         let newArray = this.state.AIDeck.filter(movie => movie !== AICard)
         this.setState({AIDeck: newArray}, () => this.checkWinCondition())
         alert('player wins')
       }
-      else if(playerCard.rating < AICard.rating) {
+      else if (playerCard.rating < AICard.rating) {
         let newArray = this.state.playerDeck.filter(movie => movie.tconst !== playerCard.tconst)
         this.setState({playerDeck: newArray}, () => this.checkWinCondition())
         alert('player loses')
@@ -81,12 +87,12 @@ class App extends React.Component {
     }
     //if comparator is set to lower, victory condition is to possess lower rating
     else if (this.state.comparatorHigher === false) {
-      if(playerCard.rating < AICard.rating){
+      if (playerCard.rating < AICard.rating) {
         let newArray = this.state.AIDeck.filter(movie => movie.tconst !== AICard.tconst)
         this.setState({AIDeck: newArray}, () => this.checkWinCondition())
         alert('player wins')
       }
-      else if(playerCard.rating > AICard.rating) {
+      else if (playerCard.rating > AICard.rating) {
         let newArray = this.state.playerDeck.filter(movie => movie.tconst !== playerCard.tconst)
         this.setState({playerDeck: newArray}, () => this.checkWinCondition())
         alert('player loses')
@@ -100,31 +106,54 @@ class App extends React.Component {
   }
 
   slamHandler = (movie) => {
-    this.setState({playerCard: movie})
+    this.setState({ playerCard: movie })
+  }
+
+  newDeckHandler = (array) => {
+    if(array.length === 10) {
+      this.setState({playerDeck: array}, console.log("player deck set to:", array))
+      // return <Redirect to='/' />
+    }
+    else {
+      alert("not enough movies yet!")
+    }
   }
 
   render() {
     return (
-      <div className="app">
-        <div>
-          <div className="sidebar">
+      <Router>
+        <Route exact path="/" render={() => {
+          return (
+            <div className="app">
+              <div>
+                <GameContainer
+                  clickHandler={this.commitHandler}
+                  cards={this.state}
+                  comparatorHigher={this.state.comparatorHigher}
+                />
+              </div>
+              <div>
+                <DeckContainer
+                  clickHandler={this.slamHandler}
+                  deck={this.state.playerDeck}
+                  header="Your deck"
+                />
+              </div>
 
-          </div>
-          <GameContainer
-            clickHandler = {this.commitHandler}
-            cards={this.state}
-            comparatorHigher = {this.state.comparatorHigher}
-          />
-        </div>
-        <div>
-          <DeckContainer
-            clickHandler = {this.slamHandler}
-            deck={this.state.playerDeck}
-          />
-        </div>
-        <div className="sidebar">
-        </div>
-      </div>
+            </div>)
+        }} />
+        <Route exact path="/deckbuilder" render={() => {
+          return (
+            <div className="app">
+              <div>
+                <DeckBuilderContainer
+                  newDeckHandler = {this.newDeckHandler}
+                />
+              </div>
+            </div>
+          )
+        }} />
+      </Router>
     );
   }
 }
