@@ -24,7 +24,7 @@ class App extends React.Component {
     this.setState({playerCard:{} })
     fetch('http://localhost:3000/api/v1/cards')
     .then(resp => resp.json())
-    .then(data => this.setState({playerDeck: data, AIDeck: data, AICard: data[Math.floor(Math.random()*data.length)]}))
+    .then(data => this.setState({playerDeck: data.slice(1,10), AIDeck: data.slice(11,20), AICard: data[Math.floor(Math.random()*data.length)]}))
   }
 
   newRound = () => {
@@ -72,7 +72,6 @@ class App extends React.Component {
         this.checkWinCondition()
       }
     }
-
     //if comparator is set to lower, victory condition is to possess lower rating
     else if (this.state.comparatorHigher === false) {
       if(playerCard.rating < AICard.rating){
@@ -91,9 +90,6 @@ class App extends React.Component {
         this.checkWinCondition()
       }
     }
-    // console.log("number of AI cards", this.state.AIDeck.length)
-    // console.log("Cards in Players Deck:", this.state.playerDeck.length)
-    // console.log("AIDeck:", this.state.AIDeck)
   }
 
   slamHandler = (movie) => {
@@ -101,7 +97,6 @@ class App extends React.Component {
   }
 
   render() {
-    // console.log("AIdeck:", this.state.AIDeck)
     return (
       <div className="app">
         <div>
@@ -112,7 +107,6 @@ class App extends React.Component {
             clickHandler = {this.commitHandler}
             cards={this.state}
             comparatorHigher = {this.state.comparatorHigher}
-
           />
         </div>
         <div>
