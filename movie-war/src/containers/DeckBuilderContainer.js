@@ -7,17 +7,9 @@ class DeckBuilderContainer extends React.Component {
 
     state = { title: "", potentialMovies: [], addedMovies: [] }
 
-    // findMovie = (searchTerm) => {
-    //     fetch("http://localhost:3000/api/v1/cards")
-    //         .then(resp => resp.json())
-    //         .then(data => )
-    // }
-
     submitHandler = (e) => {
         e.preventDefault()
-        console.log(this.state.title)
-        //put a function call here that takes the title and queries the database for it
-        this.setState({ title: "" }) //returns state title to blank
+        this.setState({ title: "" })
         fetch(`http://localhost:3000/api/v1/cards/search/${this.state.title}`)
         .then(resp => resp.json())
         .then(searchResults => this.setState({potentialMovies: searchResults}, () => console.log(this.state.potentialMovies)))
@@ -53,7 +45,7 @@ class DeckBuilderContainer extends React.Component {
                     deck={this.state.addedMovies}
                     header={'Your deck'}
                 />
-                    <Link className="submit-deck-button" onClick={() => this.props.newDeckHandler(this.state.addedMovies)} to={`/`}><h4>Create Deck</h4></Link>
+                    <Link className="submit-deck-button" onClick={() => this.props.newDeckHandler(this.state.addedMovies)} to={`/game`}><h4>Create Deck</h4></Link>
 
                 {/* <button onClick={() => this.props.newDeckHandler(this.state.addedMovies)}>Submit Deck</button> */}
             </div>

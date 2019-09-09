@@ -56,10 +56,12 @@ class App extends React.Component {
     console.log("Player Deck:", this.state.playerDeck.length, "AIDeck:", this.state.AIDeck.length)
     if (this.state.playerDeck.length === 0) {
       alert('Player loses, starting new game')
-      this.newGame()
+      window.location.href = "/"
+      // this.newGame()
     }
     else if (this.state.AIDeck.length === 0) {
-      this.newGame()
+      // this.newGame()
+      window.location.href = "/"
       alert('House loses, starting new game')
 
     }
