@@ -23,12 +23,15 @@ class App extends React.Component {
   }
 
   newGame = () => {
+    console.log('starting new game')
+    this.setState({playerCard:{} })
     fetch('http://localhost:3000/api/v1/cards')
     .then(resp => resp.json())
-    .then(data => this.setState({playerDeck: data.slice(1,3), AIDeck: data, AICard: data[Math.floor(Math.random()*data.length)]}))
+    .then(data => this.setState({playerDeck: data, AIDeck: data.slice(1,3), AICard: data[Math.floor(Math.random()*data.length)]}))
   }
 
   newRound = () => {
+    console.log('starting new round')
     this.setState({
       comparatorHigher: !this.state.comparatorHigher,
       playerCard: {},
@@ -37,14 +40,21 @@ class App extends React.Component {
   }
 
   checkWinCondition = () => {
-    console.log('checking win condition')
-    if (this.state.playerDeck.length === 0 || this.state.AIDeck.length === 0){
+    // console.log('checking win condition')
+    // console.log("house deck cards:", this.state.AIDeck.length)
+    console.log("Player Deck:", this.state.playerDeck.length, "AIDeck:", this.state.AIDeck.length)
+    if (this.state.playerDeck.length === 0){
+      alert('Player loses, starting new game')
       this.newGame()
+    } 
+    else if(this.state.AIDeck.length === 0){
+      this.newGame()
+      alert('House loses, starting new game')
+
     }
     else {
       this.newRound()
     }
-    console.log("checkWindCondition evaluates playerDeck length to:", this.state.playerDeck.length)
   }
 
   commitHandler = (playerCard = this.state.playerCard, AICard = this.state.AICard) => {
@@ -52,16 +62,14 @@ class App extends React.Component {
     if (this.state.comparatorHigher === true) {
       if(playerCard.rating > AICard.rating){
         let newArray = this.state.AIDeck.filter(movie => movie !== AICard)
-        this.setState({AIDeck: newArray})
+        this.setState({AIDeck: newArray}, () => this.checkWinCondition()
+        )
         console.log('player wins')
-        this.checkWinCondition()
       }
       else if(playerCard.rating < AICard.rating) {
         let newArray = this.state.playerDeck.filter(movie => movie.tconst !== playerCard.tconst)
-        this.setState({playerDeck: newArray})
+        this.setState({playerDeck: newArray}, () => this.checkWinCondition())
         console.log('player loses')
-        console.log("player deck cards:", this.state.playerDeck)
-        this.checkWinCondition()
       }
       else {
         console.log('tie!')
@@ -73,15 +81,14 @@ class App extends React.Component {
     else if (this.state.comparatorHigher === false) {
       if(playerCard.rating < AICard.rating){
         let newArray = this.state.AIDeck.filter(movie => movie.tconst !== AICard.tconst)
-        this.setState({AIDeck: newArray})
+        this.setState({AIDeck: newArray}, () => this.checkWinCondition())
         console.log('player wins')
-        this.checkWinCondition()
       }
       else if(playerCard.rating > AICard.rating) {
         let newArray = this.state.playerDeck.filter(movie => movie.tconst !== playerCard.tconst)
-        this.setState({playerDeck: newArray})
+        this.setState({playerDeck: newArray}, () => this.checkWinCondition())
         console.log('player loses')
-        this.checkWinCondition()
+    
       }
       else {
         console.log('tie!')
@@ -89,7 +96,7 @@ class App extends React.Component {
       }
     }
     // console.log("number of AI cards", this.state.AIDeck.length)
-    console.log("Cards in Players Deck:", this.state.playerDeck.length)
+    // console.log("Cards in Players Deck:", this.state.playerDeck.length)
     // console.log("AIDeck:", this.state.AIDeck)
   }
 
