@@ -1,56 +1,43 @@
 .app {
   display: flex;
   flex-direction: column;
-  background-color: black;
-  border-right: 15px solid black;
-  border-left: 15px solid black;
-  border-bottom: 15px solid black;
   text-align: center;
 }
 
-h1 {
-  color: white;
-}
-
-img{
-  border-radius: 8px;
-}
-
-.sidebar{
-  display: flex;
-  flex-direction: column;
-  background-color: black;
-  width: 5%;
-}
+img{border-radius: 8px;}
 
 .game-container{
 display: flex;
 flex-direction: row;
 justify-content: center;
 align-items: top;
-background-color: white;
-border: 5px solid white;
-border-radius: 5px;
+background-color: #ccffff;
 
 }
 .deck-container{
   display: flex;
   flex-direction: row;
-  background-color: white;
-  border: 5px solid white;
-  border-radius: 5px;
+  background-color: #99ffcc;
+
 }
 
+.house-card{
 
+}
+
+.player-card{
+
+}
 
 .movie-card{
   display: flex;
   flex-direction: column;
   margin: 10px;
   align-items: center;
-  background-color: rgb(236, 236, 236);
+  background-color: antiquewhite;
+  /* max-width: 15%; */
+  /* width: -webkit-fill-available; */
   flex-basis: 10%;
-  border: 2px solid black;
   border-radius: 8px;
   justify-content: center;
 }

@@ -105,6 +105,9 @@ class App extends React.Component {
     return (
       <div className="app">
         <div>
+          <div className="sidebar">
+
+          </div>
           <GameContainer
             clickHandler = {this.commitHandler}
             cards={this.state}
@@ -117,6 +120,8 @@ class App extends React.Component {
             clickHandler = {this.slamHandler}
             deck={this.state.playerDeck}
           />
+        </div>
+        <div className="sidebar">
         </div>
       </div>
     );
