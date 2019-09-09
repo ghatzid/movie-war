@@ -24,7 +24,7 @@ class App extends React.Component {
     this.setState({playerCard:{} })
     fetch('http://localhost:3000/api/v1/cards')
     .then(resp => resp.json())
-    .then(data => this.setState({playerDeck: data, AIDeck: data.slice(1,3), AICard: data[Math.floor(Math.random()*data.length)]}))
+    .then(data => this.setState({playerDeck: data, AIDeck: data, AICard: data[Math.floor(Math.random()*data.length)]}))
   }
 
   newRound = () => {

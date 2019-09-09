@@ -23,7 +23,9 @@ function GameContainer(props) {
                     />
                 </div>
                 <div className="comparator">
-                    <h1></h1>
+                    <div className="comparator-text">
+                        <h1>{comparator}</h1>
+                    </div>
                     <button onClick={() => props.clickHandler()}>Commit</button>
                 </div>
                 <div className="player-card">
