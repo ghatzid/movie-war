@@ -2,6 +2,7 @@ import React from 'react';
 import DeckContainer from './containers/DeckContainer'
 import GameContainer from './containers/GameContainer'
 import DeckBuilderContainer from './containers/DeckBuilderContainer'
+import WelcomeContainer from './containers/WelcomeContainer'
 
 import { Route, Redirect, BrowserRouter as Router } from 'react-router-dom'
 
@@ -123,6 +124,15 @@ class App extends React.Component {
     return (
       <Router>
         <Route exact path="/" render={() => {
+          return (
+            <div className="app">
+              <div>
+                <WelcomeContainer />
+              </div>
+
+            </div>)
+        }} />
+        <Route exact path="/game" render={() => {
           return (
             <div className="app">
               <div>
