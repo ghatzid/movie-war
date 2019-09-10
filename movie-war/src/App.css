@@ -47,6 +47,7 @@ border-radius: 5px;
 
 }
 .deck-container{
+  overflow: auto;
   display: flex;
   flex-direction: row;
   background-color: white;
