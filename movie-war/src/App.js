@@ -76,12 +76,12 @@ class App extends React.Component {
       if (playerCard.rating > AICard.rating) {
         let newArray = this.state.AIDeck.filter(movie => movie !== AICard)
         this.setState({AIDeck: newArray}, () => this.checkWinCondition())
-        alert('player wins')
+        alert(`Player wins. House has ${this.state.AIDeck.length} cards left`)
       }
       else if (playerCard.rating < AICard.rating) {
         let newArray = this.state.playerDeck.filter(movie => movie.tconst !== playerCard.tconst)
         this.setState({playerDeck: newArray}, () => this.checkWinCondition())
-        alert('player loses')
+        alert(`player loses. House has ${this.state.AIDeck.length} cards left`)
       }
       else {
         alert('tie!')
@@ -93,12 +93,12 @@ class App extends React.Component {
       if (playerCard.rating < AICard.rating) {
         let newArray = this.state.AIDeck.filter(movie => movie.tconst !== AICard.tconst)
         this.setState({AIDeck: newArray}, () => this.checkWinCondition())
-        alert('player wins')
+        alert(`Player wins. House has ${this.state.AIDeck.length} cards left`)
       }
       else if (playerCard.rating > AICard.rating) {
         let newArray = this.state.playerDeck.filter(movie => movie.tconst !== playerCard.tconst)
         this.setState({playerDeck: newArray}, () => this.checkWinCondition())
-        alert('player loses')
+        alert(`player loses. House has ${this.state.AIDeck.length} cards left`)
     
       }
       else {
