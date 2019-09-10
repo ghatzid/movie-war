@@ -57,47 +57,45 @@ const DeckBuilderContainer = (props) => {
     this.setState({ [e.target.name]: e.target.value });
   };
 
-  render() {
     return (
       <div>
         <h1>Build your deck</h1>
         <div className="form-container">
           <p>Search for movie by title </p>
-          <form onSubmit={this.submitHandler}>
+          <form onSubmit={submitHandler}>
             <input
               type="text"
               placeholder="title"
-              value={this.state.title}
+              value={title}
               name="title"
-              onChange={this.changeHandler}
+              onChange={changeHandler}
             />
             <input type="submit" value="submit" />
           </form>
         </div>
         <DeckContainer
-          clickHandler={this.addHandler}
-          deck={this.state.potentialMovies}
+          clickHandler={addHandler}
+          deck={potentialMovies}
           header={"Search results"}
           subHeader={""}
         />
         <DeckContainer
-          clickHandler={this.removeHandler}
-          deck={this.state.addedMovies}
+          clickHandler={removeHandler}
+          deck={addedMovies}
           header={"Your deck"}
           subHeader={this.state.addedMovies.length + "/10 movies"}
         />
         <Link
           className="submit-deck-button"
-          onClick={() => this.props.newDeckHandler(this.state.addedMovies)}
+          onClick={() => this.props.newDeckHandler(addedMovies)}
           to={"/game"}
         >
-          <h4>{this.state.createDeckLink}</h4>
+          <h4>{createDeckLink}</h4>
         </Link>
 
         {/* <button onClick={() => this.props.newDeckHandler(this.state.addedMovies)}>Submit Deck</button> */}
       </div>
     );
-  }
 }
 
 export default DeckBuilderContainer;
