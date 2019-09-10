@@ -2,13 +2,18 @@ import React from "react";
 import DeckContainer from "./DeckContainer";
 import { Link } from "react-router-dom";
 
-class DeckBuilderContainer extends React.Component {
-  state = {
-    title: "",
-    potentialMovies: [],
-    addedMovies: [],
-    createDeckLink: ""
-  };
+const DeckBuilderContainer = (props) => {
+//   state = {
+//     title: "",
+//     potentialMovies: [],
+//     addedMovies: [],
+//     createDeckLink: ""
+//   };
+
+  const [title, changeTitle] = useState("")
+  const [potentialMovies, changePotentialMoves] = useState([])
+  const [addedMovies, changeAddedMovies] = useState([])
+  const [createDeckLink, changeCreateDeckLink] = useState("")
 
   submitHandler = e => {
     e.preventDefault();
@@ -36,7 +41,7 @@ class DeckBuilderContainer extends React.Component {
   };
 
   duplicateCheck = array => {
-      
+
   }
 
   removeHandler = movie => {
