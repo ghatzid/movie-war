@@ -1,3 +1,8 @@
+html {
+  display: block;
+  background-color: black;
+}
+
 .app {
   display: flex;
   flex-direction: column;
@@ -9,64 +14,75 @@
 }
 
 h1 {
-  color: white
+  color: white;
 }
 
-img{
+img {
   border-radius: 8px;
 }
 
-.sidebar{
+.sidebar {
   display: flex;
   flex-direction: column;
   background-color: black;
   width: 5%;
 }
 
-
-.welcome-container{
-display: flex;
-flex-direction: column;
-justify-content: center;
-align-items: top;
-background-color: white;
-border: 5px solid white;
-border-radius: 5px;
-
+.welcome-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: top;
+  background-color: white;
+  border: 5px solid white;
+  border-radius: 5px;
 }
 
-
-.game-container{
-display: flex;
-flex-direction: row;
-justify-content: center;
-align-items: top;
-background-color: white;
-border: 5px solid white;
-border-radius: 5px;
-
+.game-container {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: top;
+  background-color: white;
+  border: 5px solid white;
+  border-radius: 5px;
 }
-.deck-container{
+
+.form-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: top;
+  background-color: white;
+  border: 20px solid white;
+  border-radius: 5px;
+}
+
+.deck-container {
+  display: flex;
+  flex-direction: row;
+  background-color: white;
+  border: 5px solid white;
+  border-radius: 5px;
+  overflow: auto;
+}
+
+h4 {
+  color: white;
+}
+.deck-builder-container {
   display: flex;
   flex-direction: row;
   background-color: white;
   border: 5px solid white;
   border-radius: 5px;
 }
-.deck-builder-container{
-  display: flex;
-  flex-direction: row;
-  background-color: white;
-  border: 5px solid white;
-  border-radius: 5px;
-}
 
-.submit-deck-button{
+.submit-deck-button {
   color: white;
 }
 
-
-.movie-card{
+.movie-card {
   display: flex;
   flex-direction: column;
   margin: 10px;
@@ -78,37 +94,35 @@ border-radius: 5px;
   justify-content: baseline;
 }
 
-.movie-card img{
+.movie-card img {
   margin: 10px;
   width: 50%;
-  height: auto; 
+  height: auto;
 }
 
-.movie-card h4{
-margin: 2px;
-
+.movie-card h4 {
+  color: black;
+  margin: 2px;
 }
-.movie-card p{
+.movie-card p {
   margin: 2px;
   margin-bottom: 10px;
 }
 
-.player-card p{
+.player-card p {
   margin-top: 2px;
   margin-bottom: 20px;
 }
 
-.comparator{
-display: flex;
-flex-direction: column;
-justify-content: center;
-align-items: center;
-margin: 5%;
-color: black;
-
-
+.comparator {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin: 5%;
+  color: black;
 }
 
-.comparator-text h1{
+.comparator-text h1 {
   color: black;
 }
