@@ -15,11 +15,7 @@ class DeckBuilderContainer extends React.Component {
     this.setState({ title: "" });
     fetch(`http://localhost:3000/api/v1/cards/search/${this.state.title}`)
       .then(resp => resp.json())
-      .then(searchResults =>
-        this.setState({ potentialMovies: searchResults }, () =>
-          console.log(this.state.potentialMovies)
-        )
-      );
+      .then(searchResults => this.setState({ potentialMovies: searchResults }));
   };
 
   addHandler = movie => {
@@ -30,6 +26,15 @@ class DeckBuilderContainer extends React.Component {
     if (this.state.addedMovies.length === 9) {
       this.setState({ createDeckLink: "Create deck" });
     }
+  };
+
+  removeHandler = movie => {
+    console.log("doink");
+    console.log(movie.title);
+    let newArray = this.state.addedMovies.filter(
+      obj => obj.title != movie.title
+    );
+    this.setState({ addedMovies: newArray });
   };
 
   changeHandler = e => {
@@ -60,6 +65,7 @@ class DeckBuilderContainer extends React.Component {
           subHeader={""}
         />
         <DeckContainer
+          clickHandler={this.removeHandler}
           deck={this.state.addedMovies}
           header={"Your deck"}
           subHeader={this.state.addedMovies.length + "/10 movies"}
