@@ -1,3 +1,8 @@
+html {
+  display: block;
+  background-color: black;
+}
+
 .app {
   display: flex;
   flex-direction: column;
@@ -42,6 +47,17 @@ img {
   border: 5px solid white;
   border-radius: 5px;
 }
+
+.form-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: top;
+  background-color: white;
+  border: 20px solid white;
+  border-radius: 5px;
+}
+
 .deck-container {
   display: flex;
   flex-direction: row;

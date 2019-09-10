@@ -45,8 +45,8 @@ class DeckBuilderContainer extends React.Component {
     return (
       <div>
         <h1>Build your deck</h1>
-        <div className="game-container">
-          Search for movie by title
+        <div className="form-container">
+          <p>Search for movie by title </p>
           <form onSubmit={this.submitHandler}>
             <input
               type="text"
