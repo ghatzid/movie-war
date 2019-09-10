@@ -10,7 +10,6 @@ import './App.css';
 
 class App extends React.Component {
   state = {
-    showRating: false,
     round: 1,
     comparatorHigher: true,
     playerDeck: [],
@@ -71,22 +70,87 @@ class App extends React.Component {
     }
   }
 
+  comparatorHighVictory = (playerCard, AICard) =>{
+    console.log('AI Rating:', AICard.rating)
+    if(playerCard.rating - AICard.rating <= 1.0) {
+      alert(`You win! It looks like ${playerCard.title} is a marginally better movie than ${AICard.title}`)
+    }
+    else if(playerCard.rating - AICard.rating > 1.0) {
+      alert(`You win! It looks like ${playerCard.title} is a pretty good movie compared to ${AICard.title}`)
+    }
+    else if(playerCard.rating - AICard.rating > 2.0) {
+      alert(`You win! It looks like ${playerCard.title} is a far superior movie compared to ${AICard.title}`)
+    }
+    else {
+      console.log(playerCard.rating - AICard.rating)
+      alert('You win!')
+    }
+  }
+  comparatorHighDefeat = (playerCard, AICard) =>{
+    console.log('AI Rating:', AICard.rating)
+    if(AICard.rating - playerCard.rating <= 1.0) {
+      alert(`You lose! Unfortuntately it seems ${playerCard.title} is just a little worse than ${AICard.title}`)
+    }
+    else if(AICard- playerCard.rating > 1.0) {
+      alert(`You lose! Everyone seems to think ${playerCard.title} is a mess compared to ${AICard.title}`)
+    }
+    else if(AICard.rating - playerCard.rating > 2.0) {
+      alert(`You lose! It looks like ${AICard.title} is a masterpiece compared to the dumpster fire that is ${playerCard.title}`)
+    }
+    else {
+      console.log(playerCard.rating - AICard.rating)
+      alert('You lose!')
+    }
+  }
+  comparatorLowVictory = (playerCard, AICard) =>{
+    console.log('AI Rating:', AICard.rating)
+    if(AICard.rating - playerCard.rating <= 1.0) {
+      alert(`You win! It looks like ${playerCard.title} is a marginally worse movie than ${AICard.title}.`)
+    }
+    else if(AICard.rating - playerCard.rating > 1.0) {
+      alert(`You win! Consensus seems to be ${playerCard.title} loses out to ${AICard.title} every time.`)
+    }
+    else if(AICard.rating - playerCard.rating > 2.0) {
+      alert(`You win! It looks like ${playerCard.title} is about as fun as huffing farts compared to ${AICard.title}.`)
+    }
+    else {
+      console.log(AICard.rating - playerCard.rating)
+      alert('You win!')
+    }
+  }
+  comparatorLowDefeat = (playerCard, AICard) =>{
+    console.log('AI Rating:', AICard.rating)
+    if(playerCard.rating - AICard.rating <= 1.0) {
+      alert(`You lose! It looks like ${playerCard.title} is, sadly, slightly better than ${AICard.title}`)
+    }
+    else if(playerCard.rating - AICard.rating > 1.0) {
+      alert(`You lose! Regardless of how you feel, IMDb seems to think ${playerCard.title} is a little better than ${AICard.title}`)
+    }
+    else if(playerCard.rating - AICard.rating > 2.0) {
+      alert(`You lose! It looks like ${playerCard.title} isn't the dumpster fire that ${AICard.title} is`)
+    }
+    else {
+      console.log(playerCard.rating - AICard.rating)
+      alert('You lose!')
+    }
+  }
+
   commitHandler = (playerCard = this.state.playerCard, AICard = this.state.AICard) => {
-    this.setState({showRating: true})
     //if comparator is set to higher, victory condition is to possess higher rating
     if (this.state.comparatorHigher === true) {
       if (playerCard.rating > AICard.rating) {
         let newArray = this.state.AIDeck.filter(movie => movie !== AICard)
         this.setState({AIDeck: newArray}, () => this.checkWinCondition())
-        alert(`You're right! With a rating of ${this.state.AICard.rating} ${this.state.playerCard.title} is a better movie than ${this.state.AICard.title}. House has ${this.state.AIDeck.length} cards left`)
+      //   alert('player wins')
+        this.comparatorHighVictory(playerCard, AICard)
       }
       else if (playerCard.rating < AICard.rating) {
         let newArray = this.state.playerDeck.filter(movie => movie.tconst !== playerCard.tconst)
         this.setState({playerDeck: newArray}, () => this.checkWinCondition())
-        alert(`Sorry! While you might think ${this.state.playerCard.title} is a great movie, but given ${this.state.AICard.title}'s rating of ${this.state.AICard.rating}, IMDb disagress with you. House has ${this.state.AIDeck.length} cards left`)
+        this.comparatorHighDefeat(playerCard, AICard)
       }
       else {
-        alert('tie!')
+        alert('Oh my goodness its a tie!')
         this.checkWinCondition()
       }
     }
@@ -95,12 +159,14 @@ class App extends React.Component {
       if (playerCard.rating < AICard.rating) {
         let newArray = this.state.AIDeck.filter(movie => movie.tconst !== AICard.tconst)
         this.setState({AIDeck: newArray}, () => this.checkWinCondition())
-        alert(`You're right! With a ${this.state.AICard.title}'s rating of ${this.state.AICard.rating}, ${this.state.playerCard.title} is definitely a worse movie. House has ${this.state.AIDeck.length} cards left`)
+        // alert('player wins')
+        this.comparatorLowVictory(playerCard, AICard)
       }
       else if (playerCard.rating > AICard.rating) {
         let newArray = this.state.playerDeck.filter(movie => movie.tconst !== playerCard.tconst)
         this.setState({playerDeck: newArray}, () => this.checkWinCondition())
-        alert(`Sorry, but with a rating of With a rating of ${this.state.AICard.rating}, it looks like everyone else thinks ${this.state.AICard.title} is a better movie than ${this.state.playerCard.title}. House has ${this.state.AIDeck.length} cards left`)
+        // alert('player loses')
+        this.comparatorLowDefeat(playerCard, AICard)
     
       }
       else {
@@ -144,14 +210,12 @@ class App extends React.Component {
                   clickHandler={this.commitHandler}
                   cards={this.state}
                   comparatorHigher={this.state.comparatorHigher}
-                  showRating ={this.state.showRating}
                 />
               </div>
               <div>
                 <DeckContainer
                   clickHandler={this.slamHandler}
                   deck={this.state.playerDeck}
-                  showRating = {this.state.showRating}
                   header="Your deck"
                 />
               </div>
