@@ -27,6 +27,8 @@ class DeckBuilderContainer extends React.Component {
     });
     if (this.state.addedMovies.length === 9) {
       this.setState({ createDeckLink: "Create deck" });
+    } else {
+      this.setState({ createDeckLink: "" });
     }
   };
 
@@ -38,6 +40,11 @@ class DeckBuilderContainer extends React.Component {
       addedMovies: newArray,
       potentialMovies: [movie, ...this.state.potentialMovies]
     });
+    if (this.state.addedMovies.length === 11) {
+      this.setState({ createDeckLink: "Create deck" });
+    } else {
+      this.setState({ createDeckLink: "" });
+    }
   };
 
   changeHandler = e => {
