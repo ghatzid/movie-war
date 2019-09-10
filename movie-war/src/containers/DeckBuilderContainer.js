@@ -21,7 +21,9 @@ class DeckBuilderContainer extends React.Component {
   addHandler = movie => {
     this.setState({
       addedMovies: [movie, ...this.state.addedMovies],
-      potentialMovies: this.state.potentialMovies.filter(movie => !movie)
+      potentialMovies: this.state.potentialMovies.filter(
+        obj => obj.title !== movie.title
+      )
     });
     if (this.state.addedMovies.length === 9) {
       this.setState({ createDeckLink: "Create deck" });
@@ -29,12 +31,13 @@ class DeckBuilderContainer extends React.Component {
   };
 
   removeHandler = movie => {
-    console.log("doink");
-    console.log(movie.title);
     let newArray = this.state.addedMovies.filter(
-      obj => obj.title != movie.title
+      obj => obj.title !== movie.title
     );
-    this.setState({ addedMovies: newArray });
+    this.setState({
+      addedMovies: newArray,
+      potentialMovies: [movie, ...this.state.potentialMovies]
+    });
   };
 
   changeHandler = e => {
