@@ -20,6 +20,8 @@ function GameContainer(props) {
                     <HouseCard
                         tconst={props.cards.AICard.tconst}
                         title={props.cards.AICard.title}
+                        rating={props.cards.AICard.rating}
+                        showRating={props.showRating}
                     />
                 </div>
                 <div className="comparator">

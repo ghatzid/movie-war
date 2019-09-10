@@ -10,6 +10,7 @@ import './App.css';
 
 class App extends React.Component {
   state = {
+    showRating: false,
     round: 1,
     comparatorHigher: true,
     playerDeck: [],
@@ -71,17 +72,18 @@ class App extends React.Component {
   }
 
   commitHandler = (playerCard = this.state.playerCard, AICard = this.state.AICard) => {
+    this.setState({showRating: true})
     //if comparator is set to higher, victory condition is to possess higher rating
     if (this.state.comparatorHigher === true) {
       if (playerCard.rating > AICard.rating) {
         let newArray = this.state.AIDeck.filter(movie => movie !== AICard)
         this.setState({AIDeck: newArray}, () => this.checkWinCondition())
-        alert(`Player wins. House has ${this.state.AIDeck.length} cards left`)
+        alert(`You're right! With a rating of ${this.state.AICard.rating} ${this.state.playerCard.title} is a better movie than ${this.state.AICard.title}. House has ${this.state.AIDeck.length} cards left`)
       }
       else if (playerCard.rating < AICard.rating) {
         let newArray = this.state.playerDeck.filter(movie => movie.tconst !== playerCard.tconst)
         this.setState({playerDeck: newArray}, () => this.checkWinCondition())
-        alert(`player loses. House has ${this.state.AIDeck.length} cards left`)
+        alert(`Sorry! While you might think ${this.state.playerCard.title} is a great movie, but given ${this.state.AICard.title}'s rating of ${this.state.AICard.rating}, IMDb disagress with you. House has ${this.state.AIDeck.length} cards left`)
       }
       else {
         alert('tie!')
@@ -93,12 +95,12 @@ class App extends React.Component {
       if (playerCard.rating < AICard.rating) {
         let newArray = this.state.AIDeck.filter(movie => movie.tconst !== AICard.tconst)
         this.setState({AIDeck: newArray}, () => this.checkWinCondition())
-        alert(`Player wins. House has ${this.state.AIDeck.length} cards left`)
+        alert(`You're right! With a ${this.state.AICard.title}'s rating of ${this.state.AICard.rating}, ${this.state.playerCard.title} is definitely a worse movie. House has ${this.state.AIDeck.length} cards left`)
       }
       else if (playerCard.rating > AICard.rating) {
         let newArray = this.state.playerDeck.filter(movie => movie.tconst !== playerCard.tconst)
         this.setState({playerDeck: newArray}, () => this.checkWinCondition())
-        alert(`player loses. House has ${this.state.AIDeck.length} cards left`)
+        alert(`Sorry, but with a rating of With a rating of ${this.state.AICard.rating}, it looks like everyone else thinks ${this.state.AICard.title} is a better movie than ${this.state.playerCard.title}. House has ${this.state.AIDeck.length} cards left`)
     
       }
       else {
@@ -142,12 +144,14 @@ class App extends React.Component {
                   clickHandler={this.commitHandler}
                   cards={this.state}
                   comparatorHigher={this.state.comparatorHigher}
+                  showRating ={this.state.showRating}
                 />
               </div>
               <div>
                 <DeckContainer
                   clickHandler={this.slamHandler}
                   deck={this.state.playerDeck}
+                  showRating = {this.state.showRating}
                   header="Your deck"
                 />
               </div>
