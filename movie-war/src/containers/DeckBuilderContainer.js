@@ -21,14 +21,16 @@ class DeckBuilderContainer extends React.Component {
   addHandler = movie => {
     console.log('movie', movie)
     console.log('this.state.addedMovies:', this.state.addedMovies)
-    if(!this.state.addedMovies.includes(movie)) { 
-        this.setState({
-        addedMovies: [movie, ...this.state.addedMovies],
-        potentialMovies: this.state.potentialMovies.filter(movie => !movie)
-        }, () => {});
+    if (this.state.addedMovies.length < 10) {
+        if(!this.state.addedMovies.includes(movie)) { 
+            this.setState({
+            addedMovies: [movie, ...this.state.addedMovies],
+            potentialMovies: this.state.potentialMovies.filter(movie => !movie)
+            }, () => {});
+        }
     }
     else {
-        alert("No duplicate movies")
+        alert("Too many movies!")
     }
     if (this.state.addedMovies.length === 9) {
       this.setState({ createDeckLink: "Create deck" });
