@@ -26,7 +26,7 @@ class App extends React.Component {
     console.log("starting new game");
     this.setState({ playerCard: {} });
     // if(this.state.playerDeck === []) {
-    fetch("http://localhost:3000/api/v1/cards/random/10")
+    fetch("https://moviewarbackend.herokuapp.com/api/v1/cards/random/10")
       .then(resp => resp.json())
       .then(data =>
         this.setState({ playerDeck: data }, () =>
@@ -35,7 +35,7 @@ class App extends React.Component {
       );
     // .then(data => this.setState({playerDeck: data.slice(0,10), AIDeck: data.slice(12,22), AICard: data[Math.floor(Math.random()*data.length)]}, () =>     console.log("Player Deck:", this.state.playerDeck.length, "AIDeck:", this.state.AIDeck.length)
     // }
-    fetch("http://localhost:3000/api/v1/cards/random/10")
+    fetch("https://moviewarbackend.herokuapp.com/api/v1/cards/random/10")
       .then(resp => resp.json())
       .then(data => this.setState({ AIDeck: data }, () => this.newRound()));
   };

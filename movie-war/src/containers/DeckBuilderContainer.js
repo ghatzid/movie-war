@@ -14,7 +14,7 @@ class DeckBuilderContainer extends React.Component {
   submitHandler = e => {
     e.preventDefault();
     this.setState({ title: "" });
-    fetch(`http://localhost:3000/api/v1/cards/search/${this.state.title}`)
+    fetch(`https://moviewarbackend.herokuapp.com/api/v1/cards/search/${this.state.title}`)
       .then(resp => resp.json())
       .then(searchResults => this.setState({ potentialMovies: searchResults }));
   };
