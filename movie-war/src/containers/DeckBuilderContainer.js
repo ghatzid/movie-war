@@ -7,7 +7,8 @@ class DeckBuilderContainer extends React.Component {
     title: "",
     potentialMovies: [],
     addedMovies: [],
-    createDeckLink: ""
+    createDeckLink: "",
+    thing: true 
   };
 
   submitHandler = e => {
@@ -18,15 +19,47 @@ class DeckBuilderContainer extends React.Component {
       .then(searchResults => this.setState({ potentialMovies: searchResults }));
   };
 
+//   addHandler = movie => {
+//     console.log('movie', movie)
+//     console.log('this.state.addedMovies:', this.state.addedMovies)
+//     if (this.state.addedMovies.length < 10) {
+//         if(!this.state.addedMovies.includes(movie)) { 
+//             this.setState({
+//             addedMovies: [movie, ...this.state.addedMovies],
+//             potentialMovies: this.state.potentialMovies.filter(movie => !movie)
+//             }, () => {});
+//         }
+//     }
+//     else {
+//         alert("Too many movies!")
+//     }
+//     if (this.state.addedMovies.length === 9) {
+//       this.setState({ createDeckLink: "Create deck" });
+//     }
+//   };
+
+ duplicateChecker = movie => {
+        if(!this.state.addedMovies.includes(movie)) { 
+            this.setState({addedMovies: [movie, ...this.state.addedMovies]})
+        }
+        else {
+            alert('No duplicate movies!')
+        }
+    }
+  
+
   addHandler = movie => {
     console.log('movie', movie)
     console.log('this.state.addedMovies:', this.state.addedMovies)
     if (this.state.addedMovies.length < 10) {
-        if(!this.state.addedMovies.includes(movie)) { 
-            this.setState({
+        if (this.state.addedMovies.length = 0)
+        this.setState({
             addedMovies: [movie, ...this.state.addedMovies],
-            potentialMovies: this.state.potentialMovies.filter(movie => !movie)
-            }, () => {});
+            potentialMovies: this.state.potentialMovies.filter(obj => obj.title !== movie.title)
+            })
+        else {
+            this.setState({
+            thing: !this.state.thing}, () => this.duplicateChecker(movie)) 
         }
     }
     else {
@@ -35,11 +68,9 @@ class DeckBuilderContainer extends React.Component {
     if (this.state.addedMovies.length === 9) {
       this.setState({ createDeckLink: "Create deck" });
     }
-  };
-
-  duplicateCheck = array => {
-      
   }
+
+  
 
   removeHandler = movie => {
     console.log("doink");

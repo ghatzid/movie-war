@@ -109,10 +109,17 @@ h4 {
   margin-bottom: 10px;
 }
 
+.player-card h4 {
+  color: black;
+}
+
 .player-card p {
   margin-top: 2px;
   margin-bottom: 20px;
 }
+ .house-card h4 {
+   color: black;
+ }
 
 .comparator {
   display: flex;
