@@ -52,10 +52,10 @@ class DeckBuilderContainer extends React.Component {
     console.log('movie', movie)
     console.log('this.state.addedMovies:', this.state.addedMovies)
     if (this.state.addedMovies.length < 10) {
-        if (this.state.addedMovies.length = 0)
+        if (this.state.addedMovies.length === 0)
         this.setState({
             addedMovies: [movie, ...this.state.addedMovies],
-            potentialMovies: this.state.potentialMovies.filter(obj => obj.title !== movie.title)
+            // potentialMovies: this.state.potentialMovies.filter(obj => obj.title !== movie.title)
             })
         else {
             this.setState({
