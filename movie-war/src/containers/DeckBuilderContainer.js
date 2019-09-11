@@ -8,7 +8,7 @@ class DeckBuilderContainer extends React.Component {
     potentialMovies: [],
     addedMovies: [],
     createDeckLink: "",
-    thing: true 
+    thing: true
   };
 
   submitHandler = e => {
@@ -19,66 +19,47 @@ class DeckBuilderContainer extends React.Component {
       .then(searchResults => this.setState({ potentialMovies: searchResults }));
   };
 
-//   addHandler = movie => {
-//     console.log('movie', movie)
-//     console.log('this.state.addedMovies:', this.state.addedMovies)
-//     if (this.state.addedMovies.length < 10) {
-//         if(!this.state.addedMovies.includes(movie)) { 
-//             this.setState({
-//             addedMovies: [movie, ...this.state.addedMovies],
-//             potentialMovies: this.state.potentialMovies.filter(movie => !movie)
-//             }, () => {});
-//         }
-//     }
-//     else {
-//         alert("Too many movies!")
-//     }
-//     if (this.state.addedMovies.length === 9) {
-//       this.setState({ createDeckLink: "Create deck" });
-//     }
-//   };
-
- duplicateChecker = movie => {
-        if(!this.state.addedMovies.includes(movie)) { 
-            this.setState({addedMovies: [movie, ...this.state.addedMovies]})
-        }
-        else {
-            alert('No duplicate movies!')
-        }
-    }
-  
-
   addHandler = movie => {
-    console.log('movie', movie)
-    console.log('this.state.addedMovies:', this.state.addedMovies)
     if (this.state.addedMovies.length < 10) {
-        if (this.state.addedMovies.length = 0)
+      if (this.state.addedMovies.length === 0)
         this.setState({
-            addedMovies: [movie, ...this.state.addedMovies],
-            potentialMovies: this.state.potentialMovies.filter(obj => obj.title !== movie.title)
-            })
-        else {
-            this.setState({
-            thing: !this.state.thing}, () => this.duplicateChecker(movie)) 
-        }
-    }
-    else {
-        alert("Too many movies!")
+          addedMovies: [movie, ...this.state.addedMovies],
+          potentialMovies: this.state.potentialMovies.filter(
+            obj => obj.title !== movie.title
+          )
+        });
+      else {
+        let newArray = this.state.addedMovies.filter(
+          obj => obj.title !== movie.title
+        );
+        this.setState({
+          addedMovies: [movie, ...newArray],
+          potentialMovies: this.state.potentialMovies.filter(
+            obj => obj.title !== movie.title
+          )
+        });
+      }
+    } else {
+      alert("Too many movies!");
     }
     if (this.state.addedMovies.length === 9) {
       this.setState({ createDeckLink: "Create deck" });
     }
-  }
-
-  
+  };
 
   removeHandler = movie => {
-    console.log("doink");
-    console.log(movie.title);
     let newArray = this.state.addedMovies.filter(
-      obj => obj.title != movie.title
+      obj => obj.title !== movie.title
     );
-    this.setState({ addedMovies: newArray });
+    this.setState({
+      addedMovies: newArray,
+      potentialMovies: [movie, ...this.state.potentialMovies]
+    });
+    if (this.state.addedMovies.length === 11) {
+      this.setState({ createDeckLink: "Create deck" });
+    } else {
+      this.setState({ createDeckLink: "" });
+    }
   };
 
   changeHandler = e => {
@@ -122,7 +103,7 @@ class DeckBuilderContainer extends React.Component {
           <h4>{this.state.createDeckLink}</h4>
         </Link>
 
-        {/* <button onClick={() => this.props.newDeckHandler(this.state.addedMovies)}>Submit Deck</button> */}
+        {}
       </div>
     );
   }
